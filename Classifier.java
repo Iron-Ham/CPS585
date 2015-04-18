@@ -7,49 +7,39 @@ public class Classifier {
       File f = new File(s);
       PrintWriter pw = new PrintWriter(new File("_" + s));
       Scanner reader = new Scanner(f);
-
+      reader.nextLine();
       while (reader.hasNext()) {
         String line = reader.nextLine();
         String[] lineData = line.split("[\t\n\r,]+");
         String val = "";
         String val2 = "";
-        String val3 = "";
-        double zscore = Double.parseDouble(lineData[10]);
-        double zscore_e = Double.parseDouble(lineData[11]);
-        double zscore_p = Double.parseDouble(lineData[12]);
-        if (zscore >= 2)
-          val = ", Very Warm";
-        else if (zscore >= 1)
-          val = ", Warm";
-        else if (zscore > -1)
-          val = ", Normal";
-        else if (zscore >= -2)
-          val = ", Cold";
-        else
-          val = ", Very Cold";
-        if (zscore_e >= 2)
-          val2 = ", Very High";
-        else if (zscore_e >= 1)
-          val2 = ", High";
-        else if (zscore_e > -1)
-          val2 = ", Normal";
-        else if (zscore_e >= -2)
-          val2 = ", Low";
-        else
-          val2 = ", Very Low";
+        double z_lat = Double.parseDouble(lineData[16]);
+        double z_lon = Double.parseDouble(lineData[17]);
+        if (z_lat >= 2) {
+            val = ",Far North";
+        } else if (z_lat >= 1) {
+          val = ",North";
+        } else if (z_lat > -1) {
+          val = ",Central";
+        } else if (z_lat > -2) {
+          val = ",South";
+        } else {
+          val = ",Far South";
+        }
 
-        if (zscore_p >= 2)
-          val3 = ", Very Wet";
-        else if (zscore_p >= 1)
-          val3 = ", Wet";
-        else if (zscore_p > -1)
-          val3 = ", Normal";
-        else if (zscore_p >= -2)
-          val3 = ", Dry";
-        else
-          val3 = ", Very Dry";
+        if (z_lon >= 2) {
+          val2 = ",Far East";
+        } else if (z_lon >= 1) {
+          val2 = ",East";
+        } else if ( z_lon > -1) {
+          val2 = ",Central";
+        } else if (z_lat > -2) {
+          val2 = ",West";
+        } else {
+          val2 = ",Far West";
+        }
 
-        line = line + val + val2 + val3;
+        line = line + val + val2;
         pw.println(line);
       }
       pw.close();
