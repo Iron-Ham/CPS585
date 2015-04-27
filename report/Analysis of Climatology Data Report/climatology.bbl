@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{center2010national}
+Storm~Prediction Center.
+\newblock National oceanic and atmospheric administration.
+\newblock {\em National Weather Service (NOAA/NWS), cited}, pages 1950--2010,
+  2010.
+
+\bibitem{hall2009weka}
+Mark Hall, Eibe Frank, Geoffrey Holmes, Bernhard Pfahringer, Peter Reutemann,
+  and Ian~H Witten.
+\newblock The weka data mining software: an update.
+\newblock {\em ACM SIGKDD explorations newsletter}, 11(1):10--18, 2009.
+
+\bibitem{han2006data}
+Jiawei Han, Micheline Kamber, and Jian Pei.
+\newblock {\em Data mining, southeast asia edition: Concepts and techniques}.
+\newblock Morgan kaufmann, 2006.
+
+\end{thebibliography}
