@@ -43,6 +43,7 @@ As for the data set, we hypothesized that elevation had some bearing relationshi
 
 In the following sections, the first section introduces the data cleaning and normalization. The next section explains how to get the association rules and the visualization of the rules. Then we discuss the classification process basing on five attributes, which are longitude, latitude, DPNT, DPNP, elevation. Furthermore, we also fucus on the clustering to find out the cluster of elevation and DPNT, and the cluster of elevation and DPNP. Finally, we summarized the result that we get from the project.
 
+
 \section{Data Cleaning and Normalization}
 The data we have has nine attributes that were mentioned before, and every month has around 5642 records of different stations. As for the big database, we found there are 262 ``unknown'' value filled in the station, longitude, and latitude value sets, and 12,759 records contain ``-9999'' value in the DPNT or DPNP or both. The total data tuples reach to 62,053. In other words, the percentage of the missing value is $( 262 + 12759 ) / 62053 * 100\% = 22\% $.
 \subsection{Data Cleaning}
@@ -52,13 +53,16 @@ When we read the data, there is a big difference between the maximum value and t
 \begin{equation}
 Z-score = \frac{v-\mu}{\delta} \label{z-score}
 \end{equation}
-where $\mu$ and $\delta$ are the mean and standard deviation of attribute v, respectively. 
+where $\mu$ and $\delta$ are the mean and standard deviation of attribute v, respectively.
 
-Specifically, each attribute was calculated in the following steps. First of all, the average of DPNT/DPNP/elevation/longitude/latitude are calculated as $\mu$. Secondly, we apply $|v-\mu|$ to calculate the absolute values of each attribute. Then, we get the average of these absolute values, which is taken as standard derivation $\delta$. Finally, we apply Equation\eqref{z-score} to calculate the Z-score. 
-After that, we classify five categories of each attribute. For example, elevation has normal, low, very low, high, very high status; DPNT has normal, cold, very cold, warm, very warm. As the normal status in this five attribute, we set the standard derivation of five attributes to the range of (-1, 1). Low or cold are usually set into the normalized range (-2, -1). The very low or very cold status are set the normalized number is less than -2. The same as the high/warm and very high/very warm, which are set into the normalized range (1,2) and greater than 2, respectively. 
+Specifically, each attribute was calculated in the following steps. First of all, the average of DPNT/DPNP/elevation/longitude/latitude are calculated as $\mu$. Secondly, we apply $|v-\mu|$ to calculate the absolute values of each attribute. Then, we get the average of these absolute values, which is taken as standard derivation $\delta$. Finally, we apply Equation\eqref{z-score} to calculate the Z-score.
+After that, we classify five categories of each attribute. For example, elevation has normal, low, very low, high, very high status; DPNT has normal, cold, very cold, warm, very warm. As the normal status in this five attribute, we set the standard derivation of five attributes to the range of (-1, 1). Low or cold are usually set into the normalized range (-2, -1). The very low or very cold status are set the normalized number is less than -2. The same as the high/warm and very high/very warm, which are set into the normalized range (1,2) and greater than 2, respectively.
+
+\section{Clustering}
+
 
 \section{Conclusion}
-When elevation is low or normal, DPNT tends to be normal. When elevation is normal, DPNP tends to be normal. 
+When elevation is low or normal, DPNT tends to be normal. When elevation is normal, DPNP tends to be normal.
 
 \section{Reference}
 \bibliographystyle{plain}
