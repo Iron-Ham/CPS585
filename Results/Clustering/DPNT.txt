@@ -1,0 +1,27 @@
+kMeans
+======
+
+Number of iterations: 13
+Within cluster sum of squared errors: 43.58859095620563
+Missing values globally replaced with mean/mode
+
+Cluster centroids:
+                               Cluster#
+Attribute          Full Data          0          1          2          3          4
+                     (61784)     (6195)     (5869)    (17756)    (17235)    (14729)
+===================================================================================
+Normalized DPNT      -0.0015     2.3173    -2.3277     0.8876    -0.0699    -1.0415
+
+
+
+
+Time taken to build model (full training data) : 0.46 seconds
+
+=== Evaluation on test set ===
+Clustered Instances
+
+0       6195 ( 10%)
+1       5869 (  9%)
+2      17756 ( 29%)
+3      17235 ( 28%)
+4      14729 ( 24%)
