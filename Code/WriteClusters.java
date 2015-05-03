@@ -118,7 +118,7 @@ public class WriteClusters {
   }
 
   public static double getDistance(double val, double cluster) {
-    return (Math.abs(cluster-val));
+    return (Math.abs(val-cluster));
   }
 
 }
