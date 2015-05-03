@@ -70,26 +70,26 @@ public class WriteClusters {
     String cluster = "";
 
     if (getDistance(dpnt, cluster0) < closest) {
-      closest = cluster0;
+      closest = getDistance(dpnt, cluster0);
       cluster = ",Very Warm";
-    } else if (getDistance(dpnt, cluster1) < closest) {
-      closest = cluster1;
+    } if (getDistance(dpnt, cluster1) < closest) {
+      closest = getDistance(dpnt, cluster1);
       cluster = ",Very Cold";
-    } else if (getDistance(dpnt, cluster2) < closest) {
-      closest = cluster2;
+    } if (getDistance(dpnt, cluster2) < closest) {
+      closest = getDistance(dpnt, cluster2);
       cluster = ",Warm";
-    } else if (getDistance(dpnt, cluster3) < closest) {
-      closest = cluster3;
+    } if (getDistance(dpnt, cluster3) < closest) {
+      closest = getDistance(dpnt, cluster3);
       cluster = ",Average";
-    } else if (getDistance(dpnt, cluster4) < closest) {
-      closest = cluster4;
+    } if (getDistance(dpnt, cluster4) < closest) {
+      closest = getDistance(dpnt, cluster4);
       cluster = ",Cold";
     }
     return cluster;
   }
 
   public static String assignDPNP(double dpnp) {
-    double cluster0 = -16818;
+    double cluster0 = -1.6818;
     double cluster1 = -10.168;
     double cluster2 = 19.0992;
     double cluster3 = 4.4046;
@@ -99,19 +99,19 @@ public class WriteClusters {
     String cluster = "";
 
     if (getDistance(dpnp, cluster0) < closest) {
-      closest = cluster0;
+      closest = getDistance(dpnp, cluster0);
       cluster = ",Dry";
-    } else if (getDistance(dpnp, cluster1) < closest) {
-      closest = cluster1;
+    } if (getDistance(dpnp, cluster1) < closest) {
+      closest = getDistance(dpnp, cluster1);
       cluster = ",Very Dry";
-    } else if (getDistance(dpnp, cluster2) < closest) {
-      closest = cluster2;
+    } if (getDistance(dpnp, cluster2) < closest) {
+      closest = getDistance(dpnp, cluster2);
       cluster = ",Very Wet";
-    } else if (getDistance(dpnp, cluster3) < closest) {
-      closest = cluster3;
+    } if (getDistance(dpnp, cluster3) < closest) {
+      closest = getDistance(dpnp, cluster3);
       cluster = ",Wet";
-    } else if (getDistance(dpnp, cluster4) < closest) {
-      closest = cluster4;
+    } if (getDistance(dpnp, cluster4) < closest) {
+      closest = getDistance(dpnp, cluster4);
       cluster = ",Average";
     }
     return cluster;
