@@ -37,11 +37,11 @@ public class DPNTClassAnalysis {
 
       result.println("====================\n" + s + "\n====================");
       result.println("Total: " + total);
-      result.println("Very Dry: " + veryDryCount + "\t" + (double) veryDryCount / total + "%");
-      result.println("Dry: " + dryCount + "\t" + (double) dryCount / total + "%");
-      result.println("Average: " + averageCount + "\t" + (double) averageCount / total + "%");
-      result.println("Wet: " + wetCount + "\t" + (double) wetCount / total + "%");
-      result.println("Very Wet: " + veryWetCount + "\t" + (double) veryWetCount / total + "%");
+      result.println("Very Dry: " + veryDryCount);
+      result.println("Dry: " + dryCount);
+      result.println("Average: " + averageCount);
+      result.println("Wet: " + wetCount);
+      result.println("Very Wet: " + veryWetCount);
       result.println("\n");
     }
     result.close();

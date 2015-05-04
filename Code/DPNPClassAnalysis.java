@@ -34,11 +34,11 @@ public class DPNPClassAnalysis {
 
       result.println("====================\n" + s + "\n====================");
       result.println("Total: " + total);
-      result.println("Very cold: " + verycoldCount + "\t" + (double) verycoldCount / total + "%");
-      result.println("cold: " + coldCount + "\t" + (double) coldCount / total + "%");
-      result.println("Average: " + averageCount + "\t" + (double) averageCount / total + "%");
-      result.println("warm: " + warmCount + "\t" + (double) warmCount / total + "%");
-      result.println("Very warm: " + verywarmCount + "\t" + (double) verywarmCount / total + "%");
+      result.println("Very cold: " + verycoldCount);
+      result.println("cold: " + coldCount);
+      result.println("Average: " + averageCount);
+      result.println("warm: " + warmCount);
+      result.println("Very warm: " + verywarmCount);
       result.println("\n");
     }
     result.close();
