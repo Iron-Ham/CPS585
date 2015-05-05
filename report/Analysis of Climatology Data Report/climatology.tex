@@ -1,92 +1,97 @@
 \documentclass[11pt]{article}
 \usepackage[margin= 1in]{geometry}
-% insert a picture
-%\begin{Figure}[H]
-% \centering
-%\includegraphics[scale=2,angle=30][width=0.5\textwidth]{fig1/Treemap2.png}
-% %\vspace{-0.1 in}
-%  \caption{The Tree map of April 1st shows a less anomalous situation where the magnitudes of different servers may be close. Tree map rectangles with smaller sizes (left) could also be viewed via a zoom and pan interaction with respect to blocks on the right.}
-% \label{Fig:treemap2}
-% \vspace{-0.1 in}
-%\end{figure}
-
-%insert a table
-%\begin{table}
-%\begin{tabular}{|l|l|l|}
-%\hline
-%h1&h2&h3\\
-%\hline
-%a&b&c\\
-%\hline
-%\end{tabular}
-%\end{table}
-\usepackage{cite,url,mathptmx,times,amsmath,algorithm,algorithmic,cases,subFig,multirow}
+\usepackage{cite,times,amsmath,algorithm,algorithmic,cases}
 \usepackage{graphicx}
 \usepackage{grffile}
 \usepackage{indentfirst}
 \usepackage{tabularx}
 \begin{document}
 \title{Analysis of Climatological Data}
-\author{Xiaoying Yu\\Central Michigan University\\yu3x@cmich.edu
+\author{ Hesham Salman\\Central Michigan University\\salma1hh@cmich.com
+\and Xiaoying Yu\\Central Michigan University\\yu3x@cmich.edu
 \and Ting Li\\Central Michigan University\\li2t@cmich.edu
-\and Hesham Salman\\Central Michigan University\\hesham8@gmail.com}
+\and Gongzhu Hu\\Central Michigan University\\hu1g@cmich.edu
+}
 \maketitle
 \newpage
+
+% TODO:
+%
+% Read The Paper Sections And Summarize
+%
 \begin{abstract}
+Each day thousands of locations track and climatological data. This data, when viewed in large numbers can be used to uncover patterns and associations between climatological phenomenon. We hypothesized that elevation had some bearing on the departure from the normal monthly temperature and precipitation. We created a classifier for the general weather patterns of the United States in 2014, and were able to cluster the information to find groups.
 \end{abstract}
 \newpage
+
 \section{Introduction}
-Climate is a term for describing the average conditions in a long period. Annual Climatological Summaries offer valuable information to researchers over thousands of reporting in the United States. Much attributes are collected to form the climatical data, such as temperature, precipitation, longitude, latitude, location, location name, and so on. These data stimulates researchers to dig out much useful information to predict the weather changing.
+Climatological data is well among the most well catalogued data sources. Most communities catalogue their weather, and many have for centuries! Among the many attributes that have been recorded are temperature, barometric pressures, humidity, and precipitation. This data can be used to uncover local and long-term patterns in weather trends.
 
-The data set that we discuss is from National Oceannic And Atmospheric Administration(NOAA)\cite{center2010national}. NOAA collects the whole data from daily weather forecasts, severe storm warnings and climate monitoring to fisheries management, coastal restoration and supporting marine commerce\cite{center2010national}.  There are several attributes in the data set, such as station, station name, elvation, latitude, longitude, date, the departure from normal monthly temperature(DPNT), the departure from normal monthly precipitation(DPNP), number days in month with maximum temperature greater than or equal 90 F(DT90), number days in month with maximum temperature less than or equal 32 F(Dx32). This data covers more than 5,000 stations in United Stated, and it records the report data from January in 2014 to November in 2014 of every station.
+Among the many available sources of data is the National Oceanic and Atmospheric Administration (NOAA)\cite{center2010national}. NOAA collects and stores data from multiple sources, including: daily weather forecasts, severe storm warnings, and climate monitoring agencie \cite{center2010national}. The subset of data that we pulled included the following data metrics: Station Name, Departure from Normal Monthly Temperature (DPNT), Departure from Normal Monthly Precipitation (DPNP), Latitude, Longitude, Elevation, and many others. This data set includes data from over 5,000 stations in the United States, with monthly data from January-November of 2014.
 
-As for the data set, we hypothesized that elevation had some bearing relationship on the departure from normal temperature or precipitation. Basing on the hypothesis, we take several steps to testify it, for example, cleaning the noisy data, normalizing the data, finding the associational rule of elevation and DPNT, an the associational rule of elevation and DPNP, classifying the data, finding the cluster of the data. To be specific, we also use Java to clean and normalize the big data, which has 62,503 tuples. In the classification, we randomly choose 63\% of the data to build a classifier, and then test the rest data. When referring to this step, we also apply python to converting a comma-separated values(CSV) file to aircraft rescue and firefighting(ARFF) file. In the visualization, we applied Data-Driven Documents JavaScript to visualization the relationship of the association rules. The main tool that we use to find the association rules, classification, and clustering, we apply the weka that is a collection of machine learning algorithms for data mining tasks\cite{hall2009weka}. We concluded several findings. First of all, elevation does have an effect on precipitation: as elevation increase, precipitation tends to normalize. Secondly, when the elevation is normal, most of the monthly DPNT or DPNP tend to be normal.
+We pruned the data set to focus on a number of attributes. The primary attributes that we considered in our data set were latitude, longitude, elevation, DPNP, and DPNT. These values went through a series of data cleaning and verification using Java. After cleaning, the test data set was 61,784 tuples in size. This data set was split into testing and training sets, and, using Python, was converted from CSV format to Aircraft Rescue and FireFighting (ARFF) format for processing in Weka\cite{hall2009weka}. Weka is the primary tool that we used to mine for association rules, classify and cluster the data. Other tools used include Data-Driven Documents (D3js) for data visualizations, Atom Text Editor, and Microsoft Excel for data processing.
 
-In the following sections, the first section introduces the data cleaning and normalization. The next section explains how to get the association rules and the visualization of the rules. Then we discuss the classification process basing on five attributes, which are longitude, latitude, DPNT, DPNP, elevation. Furthermore, we also fucus on the clustering to find out the cluster of elevation and DPNT, and the cluster of elevation and DPNP. Finally, we summarized the result that we get from the project.
+We hypothesized that elevation would have some impact on the departure from the normal temperature. Based on this hypothesis, several steps were taken to confirm or deny it. The data points were clustered and classified.
 
 
 \section{Data Cleaning and Normalization}
-The data we have has nine attributes that were mentioned before, and every month has around 5642 records of different stations. As for the big database, we found there are 262 ``unknown'' value filled in the station, longitude, and latitude value sets, and 12,759 records contain ``-9999'' value in the DPNT or DPNP or both. The total data tuples reach to 62,053. In other words, the percentage of the missing value is $( 262 + 12759 ) / 62053 * 100\% = 22\% $.
+The data obtained from NOAA had nine attributes, and over 62,000 total tuples. The data required some pre-processing, as there were 262 unknown values in the station, longitude or latitude value sets. These tuples were removed from the data set. Furthermore, there were 12,759 records containing a -9999 value in the DPNT or DPNP fields. -9999 is the equivalent of an unknown value for this data set. These values were replaced with a zero-value because zero implies no change from the historical monthly precipitation or temperature.
+
+
 \subsection{Data Cleaning}
-With the missing data of the first instance, we choose Complete-case method\cite{han2006data}. That is, 262 ``unknown'' tuples are removed. As to the second instance, we refer to the annual document from the NOAA. ``-9999'' was used to represent the missing value in the elevation, DPNT, and DPNP columns. For the correctness, we use Ad Hoc method to record all the ``-9999'' with ``0''. We use this method because DPNT and DPNP are the departure values. ``0'' will not produce big influence on the normalization.
+When missing geographic data was encountered (latitude, longitude, elevation), the data entry with the missing value was removed from the data set; the Complete-Case method was utilized\cite{han2006data}. The data tuples were removed using ad-hoc methods: the -9999 values were replaced with 0. An unintended side effect of this method is that it skews data towards the center.
+
+
 \subsection{Data Normalization}
-When we read the data, there is a big difference between the maximum value and the minimum value of these columns(elevation, DPNT, DPNP, longitude, latitude. According to this situation, we applied Z-score normalization method to normalize all these value sets. The Z-score equation is given in Equation \eqref{z-score}.
+In order to compare the data on equal terms, the data had to be normalized. Only the primary attributes were normalized. All of the primary attributes were normalized through calculation of Z-Score:
+\eqref{z-score}.
 \begin{equation}
 Z-score = \frac{v-\mu}{\delta} \label{z-score}
 \end{equation}
-where $\mu$ and $\delta$ are the mean and standard deviation of attribute v, respectively.
+where $\mu$ and $\delta$ are thet mean and standard deviation of attribute $v$.
 
-Specifically, each attribute was calculated in the following steps. First of all, the average of DPNT/DPNP/elevation/longitude/latitude are calculated as $\mu$. Secondly, we apply $|v-\mu|$ to calculate the absolute values of each attribute. Then, we get the average of these absolute values, which is taken as standard derivation $\delta$. Finally, we apply Equation\eqref{z-score} to calculate the Z-score.
-After that, we classify five categories of each attribute. For example, elevation has normal, low, very low, high, very high status; DPNT has normal, cold, very cold, warm, very warm. As the normal status in this five attribute, we set the standard derivation of five attributes to the range of (-1, 1). Low or cold are usually set into the normalized range (-2, -1). The very low or very cold status are set the normalized number is less than -2. The same as the high/warm and very high/very warm, which are set into the normalized range (1,2) and greater than 2, respectively.
+Each attribute was calculated in the following manner. The average of each primary value was calculated as $\mu$. Second, the absolute distance from the average value ($|v-\mu|$) to calculate the absolute values of each attribute. Then, the average mean distance is calculated, in accordance to the absolute mean distance formula:
+\eqref{absolute_mean}
+\begin{equation}
+Absolute Mean Deviation = \frac{\sum{|x - \mu|}}{N}
+\label{absolute_mean}
+\end{equation}
+
+Specifically, each attribute was calculated in the following steps. First of all, the average of DPNT / DPNP / elevation / longitude / latitude are calculated as $\mu$. Secondly, we apply $|v-\mu|$ to calculate the absolute values of each attribute. Then, we get the average of these absolute values, which is taken as standard derivation $\delta$. Finally, we apply Equation\eqref{z-score} to calculate the Z-score.
+
 \section{Association}
-After getting cleaning data for eleven mouths, what we have to do next is to find out whether elevation will have some bearings on temperature or precipitation; and if there are, will the effects be the same for each month?  Based on Association Rules in data mining and Weka software we are trying to confirm our hypothesis.
+
+To prepare the data for association mining, we split the data set into 11 distinct sets, each one a separate month. This was done so that patterns on a small scale could be easily identified.
+
 In Weka, we set our support level to 0.1 and the confidence value to 0.6. For each month, we pick up the association rules that include information about DPNP (departure from normal precipitation) or DPNT (departure from normal temperature) implied by Elevation.  Association rules found in January are given as an example in the following:
 
-1.  DPNT Class= Very Cold 658 ==$>$  Elevation Class= Normal 633    conf:(0.96)
+\begin{enumerate}
+\item DPNT Class= Very Cold 658 ==$>$  Elevation Class= Normal 633    conf:(0.96)
+\item DPNT Class= Cold  DPNP Class= Normal 705 ==$>$  Elevation Class= Normal 622    conf:(0.88)
+\item DPNT Class= Normal  Elevation Class= Normal 1624 ==$>$  DPNP Class= Normal 1392    conf:(0.86)
+\item DPNT Class= Cold 1047 ==$>$  Elevation Class= Normal 846    conf:(0.81)
+\item DPNT Class= Normal 2714 ==$>$  DPNP Class= Normal 2178    conf:(0.8)
+\item Elevation Class= Normal 3545 ==$>$  DPNP Class= Normal 2763    conf:(0.78)
+\item DPNT Class= Cold  Elevation Class= Normal 846 ==$>$  DPNP Class= Normal 622    conf:(0.74)
+\item DPNT Class= Cold 1047 ==$>$  DPNP Class= Normal 705    conf:(0.67)
+\item DPNP Class= Normal 4137 ==$>$  Elevation Class= Normal 2763    conf:(0.67)
+\item DPNT Class= Normal  DPNP Class= Normal 2178 ==$>$  Elevation Class= Normal 1392    conf:(0.64)
+\item Elevation Class= Low 965 ==$>$  DPNT Class= Normal 591    conf:(0.61)
+\end{enumerate}
 
-2.  DPNT Class= Cold  DPNP Class= Normal 705 ==$>$  Elevation Class= Normal 622    conf:(0.88)
+Using the association rules above, we visualized the frequency of these rules using a Gantt chart visualization, generated in D3. The Gantt chart visualization shows the date on the X axis, wherein each interval represents a month. The Y-axis tracks the elevation of the recording.
 
-3.  DPNT Class= Normal  Elevation Class= Normal 1624 ==$>$  DPNP Class= Normal 1392    conf:(0.86)
+%
 
-4.  DPNT Class= Cold 1047 ==$>$  Elevation Class= Normal 846    conf:(0.81)
+According to the Association Rules that we gather from Weka, the relationship between Elevation and DPNP is summarized in Gantt Chart and the specific view is showed in Figure \ref{fig:Gantt Chart for DPNP}. Empty spaces in the chart indicate months in which the rules were not observed.
 
-5.  DPNT Class= Normal 2714 ==$>$  DPNP Class= Normal 2178    conf:(0.8)
-
-6.  Elevation Class= Normal 3545 ==$>$  DPNP Class= Normal 2763    conf:(0.78)
-
-7.  DPNT Class= Cold  Elevation Class= Normal 846 ==$>$  DPNP Class= Normal 622    conf:(0.74)
-
-8.  DPNT Class= Cold 1047 ==$>$  DPNP Class= Normal 705    conf:(0.67)
-
-9.  DPNP Class= Normal 4137 ==$>$  Elevation Class= Normal 2763    conf:(0.67)
-
-10.  DPNT Class= Normal  DPNP Class= Normal 2178 ==$>$  Elevation Class= Normal 1392    conf:(0.64)
-
-11.  Elevation Class= Low 965 ==$>$  DPNT Class= Normal 591    conf:(0.61)
-
-In the above Associations rules, we try to find out Elevation\rq s effects on DPNP using the sixth rule and try to find out Elevation\rq s effects on DPNT basing on the eleventh one. After getting all of the similar interesting Association rules in each month, we combined them together and try to show those in Gantt Chart Visualizations, which are designed based on D3 JavaScript.
-
-In Gantt chart, we show date information in the X-axis, on which, each interval represents a month in 2014 and there are eleven months in total.  Y-axis is used to show the Elevation information, as we already introduced in the Data Normalization part, we normalize our whole dataset’s elevation value into five classifications; they are very low, low, normal, high and very high. So in our Gantt chart Y-axis, there are five values in all, namely very low, low, normal, high and very high. In our case, DPNP and DPNT are showed in five colors, their relationship are showed in Table~\ref{table:DPNP-DPNT-COLOR}.
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{fig/ganttchart-dpnp.png}
+  \caption{In Elevation-DPNP Cantt Chart DPNP Rule Chart, Green=Normal}
+  \label{fig:Gantt Chart for DPNP}
+  \vspace{-0.1 in}
+\end{figure}
 
 \begin{table}
 \centering
@@ -109,16 +114,7 @@ In Gantt chart, we show date information in the X-axis, on which, each interval 
 \caption{DPNP,DPNT class values and their related color in Gantt Chart}
                 \label{table:DPNP-DPNT-COLOR}
                 \end{table}
-
-According to the Association Rules that we gather from Weka, the relationship between Elevation and DPNP is summarized in Gantt Chart and the specific view is showed in Figure \ref{fig:Gantt Chart for DPNP}.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\textwidth]{fig/ganttchart-dpnp.png}
-  \caption{In Elevation-DPNP Cantt Chart, during January,February,March,April,June,October and November, at the places which have a Normal Elevation, their DPNP class values tend to be normal, and there are no association rules for May, July, Augus or September.}
-  \label{fig:Gantt Chart for DPNP}
-  \vspace{-0.1 in}
-\end{figure}
+%
 
 As we can see from the Elevation-DPNP visualization, in most of the months, such as January, February and March, when the Elevation value is Normal, the DPNP value tends to be Normal too. Information in this visualization infers that for the locations which have a Normal elevation, their departure from normal precipitation and temperature tend to be Normal too.
 
@@ -136,7 +132,7 @@ We also showed the relationship between Elevation and DPNT in Gantt Chart, and t
 Rules found in Association are only based on three attributes, namely Elevation, DPNP and DPNT.  Except for these rules, we want to find out some other interesting patterns from our dataset; hence, we take advantage of Classify in Weka software.  In the Classification, five attributes are under analysis; they are Elevation, Latitude, Longitude, DPNP and DPNT, what we want to find out is that whether we can make some predictions about certain location\rq s DPNP or DPNT value basing on its Elevation, Latitude, and Longitude.  Different from data processing in Association, in which we try to find Association Rules in each month separately; in Classification, we use java language to randomly select 63.2\% records in our whole dataset and treat them as training data , other left records are regarded as testing data.  In Weka Classify, we use the Decision Tree algorithm, set the confidenceFactor to 0.6, and we get the following results:
 
 \subsection{DPNP}
-There are 152 classifiers about DPNP in total, and among which,   44 indicates that some locations\rq DPNP class values are Very Wet or Very Dry, others locations are all keep normal.  In the 44 interesting classifiers, we find that in Partial South of America which have a low Elevation, while their DPNT class values are Very Warm, their DPNP class values tend to be Very Dry. The detailed classifiers information is showed as follows:
+There are 152 classifiers about DPNP in total, and among which, 44 indicates that some locations\rq DPNP class values are Very Wet or Very Dry, others locations are all keep normal.  In the 44 interesting classifiers, we find that in Partial South of America which have a low Elevation, while their DPNT class values are Very Warm, their DPNP class values tend to be Very Dry. The detailed classifiers information is showed as follows:
 
 Elevation Class = Low---Latitude Class = Far South---DPNT Class = Very Warm---Longitude Class = Central:  Very Dry
 
@@ -177,13 +173,61 @@ Longitude Class = West--- DPNP Class = Very Dry--- Latitude Class = Central--- E
 Longitude Class = West--- DPNP Class = Very Dry--- Latitude Class = Central--- Elevation Class = High:  Very Warm
 
 
+
+
 \section{Clustering}
+Clustering the data allowed insights into the distribution of the data points and the identification of different groups. The groups were clustered on two parameters: DPNT, and DPNP. Before clustering, the data set was divided into a training set and a testing set. In order to split the data, the data sets were processed by a Java program which had a 68.3\% chance of selecting each data point for the training set (with replacement). Values had a 32.7\% chance of being selected for the testing set. Only normalized data points were used for the clustering of values. Clustering was carried out with the Simple K Means algorithm, with the intention of finding five clusters for DPNT and DPNP. The reasoning behind five clusters is so that areas can be described as being average, above/below average, far above/below average in temperature and precipitation.
+
+The five cluster centroids are as follows:
+\begin{itemize}
+\item Cluster 0: Very Warm. Cluster Centroid: 2.3173
+\item Cluster 1: Very Cold. Cluster Centroid: -2.3277
+\item Cluster 2: Warm. Cluster Centroid: 0.8876
+\item Cluster 3: Average. Cluster Centoid: -0.0699
+\item Cluster 4: Cold. Cluster Centroid: -1.0415
+\end{itemize}
+DPNP was classified very similarly, with five classifications: Very Dry, Dry, Average, Wet, and Very Wet. The five cluster centroids are as follows:
+\begin{itemize}
+\item Çluster 0: Dry. Cluster Centroid -1.6818
+\item Cluster 1: Very Dry. Cluster Centroid: -10.168
+\item Cluster 2: Very Wet. Cluster Centroid: 19.092
+\item Cluster 3: Wet. Cluster Centroid: 4.4046
+\item Cluster 4: Average. Cluster Centroid: 0.2841
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=10cm]{dpnt_cluster}
+\caption{Clustering of DPNT. From Left to right, the clusters are: Very Cold, Cold, Average, Warm, Very Warm}
+\label{fig:dpnt_cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm]{dpnp_cluster}
+\caption{Clustering of DPNP. From Left to right, the clusters are: Very Dry, Dry, Average, Wet, Very Wet}
+\label{fig:dpnp_cluster}
+\end{figure}
+
+
+The distribution in figure \ref{fig:dpnt_cluster} is such that very warm cluster contains ~10\% of the data (6195 data points), the warm cluster accounts for ~29\% of the data (17756 data points), the average cluster accounts for ~28\% of the data(17235 data points), the cold cluster accounts for ~24\% of the data (14729 data points) and the very cold cluster accounts for ~9\% of the data (5869 data points). The distribution in figure \ref{fig:dpnp_cluster} is such that very dry cluster contains ~2\% of the data (1157 data points), the dry cluster accounts for ~27\% of the data (16785 data points), the average cluster accounts for ~63\% of the data(38992 data points), the wet cluster accounts for ~7\% of the data (4336 data points) and the very wet cluster accounts for ~1\% of the data (1157 data points).
+
+In general, 2014 tended to be dryer and warmer than previous years. Variations within each group also existed. Areas with less precipitation tended to be warmer, and areas that had more precipitation tended to be colder, as can be seen in figure \ref{fig:class_distributions}. The differences between each of these classes are significant, having passed a chi-square test with a p-value of 0.01.
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm]{ClassDistributions}
+\caption{The distributions of temperature within each precipitation cluster}
+\label{fig:class_distributions}
+\end{figure}
 
 
 \section{Conclusion}
-When elevation is low or normal, DPNT tends to be normal. When elevation is normal, DPNP tends to be normal.
 
-\section{Reference}
+In our clustering, we were able to conclude that the DPNT and DPNP are somewhat correlated, wherein a warmer locale will tend to be dryer and a colder locale will tend to be wetter. The clustering was unable to conclusively find a correlation between elevation and DPNT or DPNP. The association found that higher elevation tended to have "normal" values, but that could be caused by a number of confounding variables: there may be missing values replaced with 0s, or the overall number of high-elevation areas is small and may not have a wide enough distribution to observe irregularities.
+Through classification, we were able to generalize the year of weather patterns for each area. For example, the north west United States was warmer and drier compared to the previous 20 years of temperature records.
+
+\section{Future Work}
+Future analysis could be conducted on drought identification. DPNP could be used to identify areas experiencing a drought, and can be cross referenced with an area's Palmer Drought Severity Index. The classifier could be improved to provide a more accurate model for the data.
 \bibliographystyle{plain}
 \bibliography{bb}
 \end{document}
